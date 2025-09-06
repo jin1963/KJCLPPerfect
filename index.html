@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>KJC LP Auto Stake (Web3.js)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Web3.js -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💧 KJC LP Auto Staking</h1>
+    <p id="status" class="err">❌ ยังไม่เชื่อมต่อกระเป๋า</p>
+    <button onclick="connectWallet()">🔗 เชื่อมต่อกระเป๋า</button>
+
+    <hr>
+
+    <!-- สมัคร Referrer -->
+    <label>Referrer Address:</label>
+    <input id="refAddress" placeholder="0x..." style="width:100%">
+    <button onclick="setReferrer()">📝 สมัคร Referrer</button>
+
+    <!-- ย้ายลิงก์แนะนำมาไว้ตรงนี้ -->
+    <div style="margin-top:10px;">
+      <label>📨 ลิงก์แนะนำของคุณ:</label>
+      <div style="display:flex; gap:8px;">
+        <input id="myRefLink" type="text" readonly style="flex:1;">
+        <button onclick="copyRefLink()">คัดลอก</button>
+      </div>
+      <small id="refHint" style="color:#bfa53a">เชื่อมกระเป๋าเพื่อสร้างลิงก์อัตโนมัติ</small>
+    </div>
+
+    <hr>
+
+    <!-- ซื้อและ Stake -->
+    <label>จำนวน USDT ที่จะใช้ซื้อ & Stake LP:</label>
+    <input id="usdtAmount" type="number" placeholder="เช่น 50">
+    <button onclick="quoteKJC()">🔍 ประเมิน KJC</button>
+    <p id="quoteBox">-</p>
+    <button onclick="buyAndStake()">🧩 Buy & Stake</button>
+
+    <hr>
+
+    <!-- Your Stake -->
+    <div class="card">
+      <h2>📊 ข้อมูล Staking ของคุณ</h2>
+      <div class="grid">
+        <div>
+          <div class="label">Staked LP</div>
+          <div class="big" id="uiStakedLP">-</div>
+        </div>
+        <div>
+          <div class="label">เคลมล่าสุด</div>
+          <div class="big" id="uiLastClaim">-</div>
+        </div>
+        <div>
+          <div class="label">เคลมรอบถัดไป</div>
+          <div class="big" id="uiNextClaim">-</div>
+        </div>
+        <div>
+          <div class="label">ปลดล็อกถอน LP ได้หลัง</div>
+          <div class="big" id="uiUnlockAt">-</div>
+        </div>
+        <div>
+          <div class="label">สถานะถอน</div>
+          <div class="big" id="uiCanWithdraw">-</div>
+        </div>
+        <div>
+          <div class="label">Referral Rewards (KJC)</div>
+          <div class="big" id="uiRefRewards">-</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <button id="btnRefresh" onclick="fetchAndRenderUser()">🔄 รีเฟรชข้อมูล</button>
+        <button id="btnWithdraw" onclick="withdrawLP()">⬇️ ถอน LP</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- เคลมรางวัล -->
+    <button onclick="claimStakingReward()">🎁 เคลมรางวัล Staking</button>
+    <button onclick="claimReferralReward()">🎁 เคลมรางวัล Referral</button>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="wallet.js"></script>
+  <script src="staking.js"></script>
+</body>
+</html>
